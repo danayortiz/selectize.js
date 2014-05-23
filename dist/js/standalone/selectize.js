@@ -1970,6 +1970,15 @@
 				self.lastQuery = query;
 				result = self.sifter.search(query, $.extend(options, {score: calculateScore}));
 				self.currentResults = result;
+				self.containsExactMatch = (function() {
+					var i = self.sifter.items.length - 1;
+					for (; i >= 0; i--) {
+						if  (self.sifter.items[i].text == query) {
+							return true;
+						}
+					}
+					return false;
+				})();
 			} else {
 				result = $.extend(true, {}, self.currentResults);
 			}
@@ -2077,7 +2086,7 @@
 			}
 	
 			// add create option
-			has_create_option = self.settings.create && results.query.length;
+			has_create_option = self.settings.create && results.query.length && !self.containsExactMatch;
 			if (has_create_option) {
 				$dropdown_content.prepend(self.render('option_create', {input: query}));
 				$create = $($dropdown_content[0].childNodes[0]);
