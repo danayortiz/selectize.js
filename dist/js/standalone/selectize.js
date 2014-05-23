@@ -1971,9 +1971,9 @@
 				result = self.sifter.search(query, $.extend(options, {score: calculateScore}));
 				self.currentResults = result;
 				self.containsExactMatch = (function() {
-					var i = self.sifter.items.length - 1;
+					var i = result.length - 1;
 					for (; i >= 0; i--) {
-						if  (self.sifter.items[i].text == query) {
+						if  (self.sifter.items[result[i]].text == query) {
 							return true;
 						}
 					}
