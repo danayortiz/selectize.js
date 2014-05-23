@@ -1387,7 +1387,7 @@
 				self.containsExactMatch = (function() {
 					var i = result.items.length - 1;
 					for (; i >= 0; i--) {
-						if  (self.sifter.items[result.items[i]].text == query) {
+						if  (self.sifter.items[result.items[i].id].text == query) {
 							return true;
 						}
 					}
