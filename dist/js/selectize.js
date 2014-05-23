@@ -461,6 +461,14 @@
 		update();
 	};
 	
+	/**
+	 * Returns TRUE if given value is a priomise object
+	 */
+	var isPromise = function(value) {
+		return (typeof value.then === "function") && (typeof value.done === "function");
+	};
+	
+	
 	var Selectize = function($input, settings) {
 		var key, i, n, dir, input, self = this;
 		input = $input[0];
@@ -1881,7 +1889,11 @@
 	
 			var output = setup.apply(this, [input, create]);
 			if (typeof output !== 'undefined') {
-				create(output);
+				if (isPromise(output)) {
+					output.done(function(v) { create(v); });
+				} else {
+					create(output);
+				}
 			}
 	
 			return true;

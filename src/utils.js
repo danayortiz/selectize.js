@@ -342,3 +342,10 @@ var autoGrow = function($input) {
 	$input.on('keydown keyup update blur', update);
 	update();
 };
+
+/**
+ * Returns TRUE if given value is a priomise object
+ */
+var isPromise = function(value) {
+	return (typeof value.then === "function") && (typeof value.done === "function");
+};

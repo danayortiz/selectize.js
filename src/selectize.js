@@ -1418,7 +1418,11 @@ $.extend(Selectize.prototype, {
 
 		var output = setup.apply(this, [input, create]);
 		if (typeof output !== 'undefined') {
-			create(output);
+			if (isPromise(output)) {
+				output.done(function(v) { create(v); });
+			} else {
+				create(output);
+			}
 		}
 
 		return true;
